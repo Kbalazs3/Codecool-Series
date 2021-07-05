@@ -1,0 +1,91 @@
+{% extends "design.html" %}
+
+{% block title %}
+    {% for sh in show %}
+        {{  sh['title']}}
+    {% endfor %}
+{% endblock %}
+
+{% block mainh1 %}
+{% for st in show %}
+    {{ st['title'] }}
+    {% endfor %}
+{% endblock %}
+
+{% block navcontent %}{% endblock %}
+
+{% block content %}
+    <div class="card">
+            <p>And here is a "detailed" kind of view:</p>
+            <div class="row">
+                {% for d in show %}
+                <img src="http://www.impawards.com/2016/posters/deadpool_ver5.jpg" alt="Deadpool poster"
+                     class="poster col col-third">
+                <div class="col col-twothird">
+                    <h2>{{ d['title']}} </h2>
+                    {% if (d['runtime'] /60)|int > 0 and ((d['runtime'])|int) % 60 != 0  %}
+                    <p class="small grayed">{{ (d['runtime'] /60)|int }}h {{ d['runtime'] % 60 }} min
+                    {% elif (d['runtime'] /60)|int > 0 and d['runtime']|int % 60 == 0 %}
+                         <p class="small grayed">{{ (d['runtime'] /60)|int }}h
+                    {% elif (d['runtime'] /60)|int == 0  %}
+                        {{ d['runtime'] % 60 }} min
+                        {% endif %}
+                        <span class="separator">|</span>{{ d['rating']|round(1)}} ☆<span class="separator">|</span>{{ d['genre'] }}<span
+                            class="separator">|</span> {{ d['year'] }} (Country)</p>
+                    <p>{{ d['overview'] }}</p>
+                    <br>
+                    {% if d['trailer'] != None %}
+
+                    <iframe src="{{d['trailer']|replace('watch?v=', 'embed/') }}" width="560" height="315"
+></iframe>
+                    {% else %}
+                    <h3>There is no avaible trailer to this show</h3>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+            <div>
+                <p><b>Director:</b>&nbsp;<a href="#">Tim Miller</a></p>
+                <p><b>Writers:</b>&nbsp;<a href="#">Rhett Reese</a>, <a href="#">Paul Wernick</a></p>
+                <p><b>Stars:</b>{{ actor[0]['actor'] }}</p>
+            </div>
+        </div>
+    <div class="card">
+        <h1>Seasons</h1>
+        <br>
+
+        <table>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Overview
+                </th>
+            </tr>
+            {% for se in seasons %}
+            <tr>
+                <td>
+                    {{ se['season_number']}}
+                </td>
+                <td>
+                    {{ se['title']}}
+                </td>
+                {% if se['overview'] != None %}
+                <td>
+                    {{ se['overview']}}
+                </td>
+                {% else %}
+                <td>
+
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+{% endblock %}

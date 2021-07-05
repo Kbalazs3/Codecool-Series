@@ -1,0 +1,92 @@
+{% extends "design.html" %}
+
+{% block title %}Shows{% endblock %}
+{% block mainh1 %}Shows{% endblock %}
+
+{% block navcontent %}{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <h1>Top 15 ranked shows</h1>
+        <br>
+        <table>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Runtime(min)
+                </th>
+                <th>
+                    Rating
+                </th>
+                <th>
+                    Genre
+                </th>
+                <th>
+                    Trailer
+                </th>
+                <th>
+                    Home Page
+                </th>
+            </tr>
+            {% set page_num = pgnum|int %}
+            {% set sec_num = page_num - 1  %}
+            {% for s in top15 %}
+                {% set index = loop.index %}
+                {% if sec_num * 15  <  index <=  page_num * 15 %}
+
+                <tr>
+                    <td>
+                         <a href="{{ '/tv-show/' + (s['id'] | string) }}">{{ s['title'] }}</a>
+                    </td>
+                    <td>
+                        {{ s['year'] }}
+                    </td>
+                    <td>
+                        {{ s['runtime'] }}
+                    </td>
+                    <td>
+                        {{ s['rating']|round(1) }}
+                    </td>
+                    <td>
+                        {{  s['genre'] }}
+                    </td>
+                    {% if s['trailer']  == None %}
+                    <td>No Url</td>
+                {% elif s['trailer'] != "" %}
+                    <td><a href="{{ s['trailer'] }}">{{ s['trailer'] }}</a>
+                {%endif%}
+                    </td>
+                    {% if s['homepage']  == None %}
+                    <td>
+                        No Url
+                    </td>
+                {% elif s['homepage'] != "" %}
+                    <td>
+                        <a href="{{ s['homepage'] }}">{{ s['homepage'] }}</a>
+                    </td>
+                {% endif %}
+                     </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+    <br>
+    <div id="page_button_card">
+       {% for s in top15 %}
+            {%set i = loop.index %}
+            {%if i % 15 == 0 %}
+            {%set i = i //15|int %}
+                <a href="/shows/most-rated/{{i}}"><button>{{i}}</button></a>
+            {%endif%}
+        {% endfor%}
+        {%set i = (top15|length/15)|round|int + 1%}
+        <a href="/shows/most-rated/{{i}}"><button class="pages_button">{{i}}</button></a>
+    </div>
+{% endblock %}
+
+

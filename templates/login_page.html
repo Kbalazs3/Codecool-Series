@@ -1,0 +1,27 @@
+{% extends "design.html" %}
+
+{% block title %}Sign In{% endblock %}
+{% block script %}<script src="/static/js/login.js" defer></script>{% endblock %}
+{% block mainh1 %}Sign In{% endblock %}
+
+{% block navcontent %}{% endblock %}
+
+{% block content %}
+
+    <div class="card">
+        <h2>You can sign in here: </h2>
+        <br>
+        <label for="log_email">E-mail</label>
+        <br>
+        <input type="email" id="log_email" name="log_email">
+        <br>
+        <br>
+        <label for="log_password">Password</label>
+        <br>
+        <input type="password" id="log_password" name="log_password">
+        <br>
+        <br>
+        <button id="log_submit">Sign In</button>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "design.html"%}
+{%block headtitle%}Search{%endblock%}
+
+{%block script%}
+    <script src="/static/js/search.js" defer></script>
+{%endblock%}
+
+{% block content %}
+<div class="card" id="searchDiv">
+    <button id="search_button">Actors</button>
+    <br>
+    <br>
+    <input id="search_actor" type="text">
+    <button id="submit">Submit</button>
+</div>
+{%endblock%}
