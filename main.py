@@ -33,11 +33,9 @@ def get_reg_data():
     hashed_password = hash_passwords(password)
     used_emails = queries.get_used_emails()
     for re in used_emails:
-        if re['email'] == email :
+        if re['email'] == email:
             return jsonify('used')
     queries.write_new_users(email, hashed_password)
-    print()
-    print('OKay')
 
 
 def hash_passwords(password):
@@ -84,10 +82,7 @@ def login_page():
 
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
-    print(session)
     session.pop('email')
-    print()
-    print(session)
     if not session:
         return jsonify('Logout')
 
@@ -113,7 +108,6 @@ def search():
 @app.route("/search/actors", methods=['POST'])
 def search_actors():
     actor_name = request.get_json(force=True)
-    print(actor_name)
     search_result = queries.search_actors(actor_name)
     return jsonify(queries.search_actors(actor_name))
 
@@ -121,9 +115,7 @@ def search_actors():
 @app.route("/send-favourite", methods=['POST'])
 def favourite_show():
     favourite = request.get_json(force=True)
-    print(favourite)
     queries.insert_favourite(favourite['favouriteId'], session['email'])
-
     return jsonify('Favourite')
 
 

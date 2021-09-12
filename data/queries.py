@@ -72,7 +72,6 @@ def insert_favourite(show_id, email):
      """)
 
 
-
 def get_users_favourites(user_email):
     return data_manager.execute_select('''SELECT favourites 
     FROM users WHERE email = %(user_email)s''', {'user_email': user_email})
